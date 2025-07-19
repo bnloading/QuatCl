@@ -6,7 +6,7 @@ import { useState } from "react";
 import SectionSeparator from "@/components/SectionSeparator";
 
 // Simple Custom Calendar Component
-const CustomCalendar = ({ markedDate = 28 }) => {
+const CustomCalendar = ({ markedDate = 30 }) => {
   const year = 2025;
   const month = "шілде";
   const daysOfWeek = ["Дүй", "Сей", "Сәр", "Бей", "Жұм", "Сен", "Жек"];
@@ -92,19 +92,27 @@ export default function Events() {
               <p className="text-2xl font-monserrat text-gray-900">
                 <br />
                 <span className="italic font-semibold text-gray-800 text-lg">
-                  АТА-АНАСЫ:
+                  АПАСЫ:
                 </span>
                 <br />
                 <span className="font-cormorant text-2xl text-gray-700">
-                  АҒЖАН, ЖАЙНАГҮЛ
+                  Б.ШОМАЙ
                 </span>
                 <br />
                 <span className="italic font-semibold text-gray-800 text-lg">
-                  АҒА-ЖЕҢГЕСІ:
+                  ӘКЕ-ШЕШЕСІ:
                 </span>
                 <br />
                 <span className="font-cormorant text-2xl text-gray-700">
-                  МАҒЖАН, ӨМІРГҮЛ
+                  Н.ЕРБОЛАТ, М.ГҮЛЬНАР
+                </span>
+                <br />
+                <span className="font-cormorant text-2xl text-gray-700">
+                  және
+                </span>
+                <br />
+                <span className="italic font-cormorant text-gray-700 text-2xl">
+                  АҒАЙЫН ТУЫСТАРЫ
                 </span>
               </p>
             </motion.div>
@@ -139,7 +147,7 @@ export default function Events() {
               className="flex justify-center my-8"
             >
               <div className="bg-white rounded-2xl shadow-lg p-6 border border-gray-100">
-                <CustomCalendar markedDate={28} />
+                <CustomCalendar markedDate={30} />
               </div>
             </motion.div>
 

@@ -78,23 +78,18 @@ function App() {
 
   // Priority images for fast loading
   const priorityImages = [
-    "/images/Saya/10.JPEG", // Main background
-    "/images/Saya/1.JPEG", // Hero couple photo
-    "/images/Saya/2.JPEG", // Landing page
+    "/images/QuatCl/AGN_7305.jpg", // Main background
+    "/images/QuatCl/_ENH6237.jpg", // Hero couple photo
+    "/images/QuatCl/_ENH6253.jpg", // Landing page
   ];
 
   // All gallery images for preloading
   const galleryImages = [
-    "/images/Saya/3.JPEG",
-    "/images/Saya/4.JPEG",
-    "/images/Saya/5.JPEG",
-    "/images/Saya/6.JPEG",
-    "/images/Saya/7.JPEG",
-    "/images/Saya/8.JPEG",
-    "/images/Saya/9.JPEG",
-    "/images/Saya/11.jpg",
-    "/images/Saya/12.jpg",
-    "/images/Saya/13.jpg",
+    "/images/QuatCl/_ENH6267.jpg",
+    "/images/QuatCl/_ENH6332.jpg",
+    "/images/QuatCl/_ENH6422.jpg",
+    "/images/QuatCl/AGN_7346.jpg",
+    "/images/QuatCl/AGN_7417.jpg",
   ];
 
   return (

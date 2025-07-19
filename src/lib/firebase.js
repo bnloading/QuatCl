@@ -1,4 +1,5 @@
 import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
 import {
   getFirestore,
   collection,
@@ -7,17 +8,22 @@ import {
   onSnapshot,
 } from "firebase/firestore";
 
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyDN_HPzbKc_eLjbCEqoLuzGECbYoFhuOwk",
-  authDomain: "saya-24ec4.firebaseapp.com",
-  projectId: "saya-24ec4",
-  storageBucket: "saya-24ec4.firebasestorage.app",
-  messagingSenderId: "864275314522",
-  appId: "1:864275314522:web:2941818dbd6a9cd7506563",
-  measurementId: "G-YLK41QNRWW",
+  apiKey: "AIzaSyCJ70kalyLpcLqrUEONR1leIGzMVHmmlfc",
+  authDomain: "quatcl-2552a.firebaseapp.com",
+  databaseURL: "https://quatcl-2552a-default-rtdb.firebaseio.com",
+  projectId: "quatcl-2552a",
+  storageBucket: "quatcl-2552a.firebasestorage.app",
+  messagingSenderId: "528327145000",
+  appId: "1:528327145000:web:041d0bac5245a101e3e71d",
+  measurementId: "G-LH7GNE3VLQ",
 };
 
+// Initialize Firebase
 const app = initializeApp(firebaseConfig);
+export const analytics = getAnalytics(app);
 export const db = getFirestore(app);
 
 // Add this function to handle real-time comments subscription

@@ -319,15 +319,17 @@ export default function Hero() {
                         initial={{ scale: 0.8, opacity: 0 }}
                         animate={{ scale: 1, opacity: 1 }}
                         transition={{ delay: 0.6 }}
-                        className="text-4xl sm:text-4xl font-Toy text-black leading-relaxed tracking-wide font-bold"
+                        className="text-4xl sm:text-4xl font-Toy text-black leading-relaxed tracking-wide font-bold mb-4"
                       >
                         {config.data.groomName}
+                        <br />
                         <span className="inline-block mx-4">
                           <Heart
                             className="w-8 h-8 sm:w-12 sm:h-12 text-red-500 inline"
                             fill="currentColor"
                           />
                         </span>
+                        <br />
                         {config.data.brideName}
                       </motion.h2>
                     </div>
