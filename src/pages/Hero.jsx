@@ -15,24 +15,42 @@ const FastImage = ({ src, alt, className, onClick }) => {
     const img = new Image();
     img.onload = () => setLoaded(true);
     img.onerror = () => setError(true);
+    img.fetchPriority = "high";
+    img.decoding = "async";
+    img.loading = "eager";
     img.src = src;
   }, [src]);
 
   return (
     <>
       {!loaded && !error && (
-        <div className={`${className} bg-gray-300 animate-pulse`} />
+        <div className={`${className} bg-gray-300 animate-pulse`}>
+          {/* Base64 blur placeholder */}
+          <div
+            className="absolute inset-0 bg-cover bg-center opacity-50"
+            style={{
+              backgroundImage: `url("data:image/svg+xml,%3csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100' height='100' fill='%23d1d5db'/%3e%3c/svg%3e")`,
+              filter: "blur(10px)",
+            }}
+          />
+        </div>
       )}
       {loaded && (
         <motion.img
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.3 }}
+          transition={{ duration: 0.5 }}
           src={src}
           alt={alt}
           className={className}
           onClick={onClick}
           loading="eager"
+          decoding="async"
+          fetchPriority="high"
+          style={{
+            imageRendering: "auto",
+            willChange: "transform",
+          }}
         />
       )}
       {error && (

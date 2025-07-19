@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { Calendar, Clock, Heart } from "lucide-react";
 import { useState, useEffect } from "react";
 
-// Image preloader component
+// Image preloader component with better optimization
 const OptimizedImage = ({ src, alt, className, style, onLoad }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
   const [imageError, setImageError] = useState(false);
@@ -17,31 +17,40 @@ const OptimizedImage = ({ src, alt, className, style, onLoad }) => {
       if (onLoad) onLoad();
     };
     img.onerror = () => setImageError(true);
+    img.fetchPriority = "high";
+    img.decoding = "async";
+    img.loading = "eager";
     img.src = src;
   }, [src, onLoad]);
 
   return (
     <div className="relative">
-      {/* Blur placeholder */}
+      {/* Enhanced blur placeholder */}
       {!imageLoaded && !imageError && (
         <div
           className={`${className} bg-gray-200`}
           style={{
             ...style,
             backgroundImage: `url("data:image/svg+xml,%3csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100' height='100' fill='%23f3f4f6'/%3e%3c/svg%3e")`,
-            filter: "blur(5px)",
+            filter: "blur(10px)",
           }}
         />
       )}
 
-      {/* Actual image */}
+      {/* Optimized actual image */}
       {imageLoaded && (
         <img
           src={src}
           alt={alt}
-          className={`${className} transition-opacity duration-500`}
-          style={style}
+          className={`${className} transition-opacity duration-700`}
+          style={{
+            ...style,
+            imageRendering: "auto",
+            willChange: "transform",
+          }}
           loading="eager"
+          decoding="async"
+          fetchPriority="high"
         />
       )}
 

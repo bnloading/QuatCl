@@ -79,8 +79,8 @@ function App() {
   // Priority images for fast loading
   const priorityImages = [
     "/images/QuatCl/AGN_7305.jpg", // Main background
-    "/images/QuatCl/_ENH6237.jpg", // Hero couple photo
-    "/images/QuatCl/_ENH6253.jpg", // Landing page
+    "/images/QuatCl/_ENH6253.jpg", // Hero couple photo
+    "/images/QuatCl/_ENH6267.jpg", // Landing page
   ];
 
   // All gallery images for preloading

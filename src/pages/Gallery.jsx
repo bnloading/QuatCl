@@ -9,39 +9,48 @@ const ImageLoader = ({ src, alt, className, style, onClick }) => {
   const [error, setError] = useState(false);
 
   useEffect(() => {
-    // Preload image
+    // Preload image with better optimization
     const img = new Image();
     img.onload = () => setLoaded(true);
     img.onerror = () => setError(true);
+    img.fetchPriority = "high";
+    img.decoding = "async";
+    img.loading = "eager";
     // Start loading immediately
     img.src = src;
   }, [src]);
 
   return (
     <div className="relative overflow-hidden">
-      {/* Fast placeholder with base64 blur */}
+      {/* Improved placeholder with base64 blur */}
       {!loaded && !error && (
         <div
           className="absolute inset-0 bg-gray-200 animate-pulse flex items-center justify-center"
           style={{
             backgroundImage: `url("data:image/svg+xml,%3csvg width='20' height='20' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='20' height='20' fill='%23e5e7eb'/%3e%3c/svg%3e")`,
             backgroundSize: "20px 20px",
+            filter: "blur(5px)",
           }}
         >
-          <div className="w-6 h-6 border-2 border-gray-400 border-t-transparent rounded-full animate-spin"></div>
+          <div className="w-6 h-6 border-2 border-gray-400 border-t-transparent rounded-full animate-spin z-10"></div>
         </div>
       )}
 
-      {/* Optimized image */}
+      {/* Optimized image with better performance */}
       {loaded && (
         <img
           src={src}
           alt={alt}
-          className={`${className} transition-all duration-300`}
-          style={style}
+          className={`${className} transition-all duration-500`}
+          style={{
+            ...style,
+            imageRendering: "auto",
+            willChange: "transform",
+          }}
           onClick={onClick}
           loading="eager"
           decoding="async"
+          fetchPriority="high"
         />
       )}
 
@@ -62,56 +71,56 @@ export default function Gallery() {
   const images = [
     {
       id: 1,
-      src: "/images/QuatCl/_ENH6237.jpg",
+      src: "/images/QuatCl/_ENH6253.jpg",
       alt: "Сурет-1",
       description: "Сурет-1",
       style: { objectFit: "cover", aspectRatio: "16/9" },
     },
     {
       id: 2,
-      src: "/images/QuatCl/_ENH6253.jpg",
+      src: "/images/QuatCl/_ENH6267.jpg",
       alt: "Сурет-2",
       description: "Сурет-2",
       style: { objectFit: "cover", aspectRatio: "16/9" },
     },
     {
       id: 3,
-      src: "/images/QuatCl/_ENH6267.jpg",
+      src: "/images/QuatCl/_ENH6332.jpg",
       alt: "Сурет-3",
       description: "Сурет-3",
       style: { objectFit: "cover", aspectRatio: "16/9" },
     },
     {
       id: 4,
-      src: "/images/QuatCl/_ENH6332.jpg",
+      src: "/images/QuatCl/_ENH6422.jpg",
       alt: "Сурет-4",
       description: "Сурет-4",
       style: { objectFit: "cover", aspectRatio: "16/9" },
     },
     {
       id: 5,
-      src: "/images/QuatCl/_ENH6422.jpg",
+      src: "/images/QuatCl/AGN_7305.jpg",
       alt: "Сурет-5",
       description: "Сурет-5",
       style: { objectFit: "cover", aspectRatio: "16/9" },
     },
     {
       id: 6,
-      src: "/images/QuatCl/AGN_7305.jpg",
+      src: "/images/QuatCl/AGN_7417.jpg",
       alt: "Сурет-6",
       description: "Сурет-6",
       style: { objectFit: "contain", maxHeight: "100%", width: "100%" },
     },
     {
       id: 7,
-      src: "/images/QuatCl/AGN_7346.jpg",
+      src: "/images/QuatCl/2.jpg",
       alt: "Сурет-7",
       description: "Сурет-7",
       style: { objectFit: "cover", aspectRatio: "16/9" },
     },
     {
       id: 8,
-      src: "/images/QuatCl/AGN_7417.jpg",
+      src: "/images/QuatCl/12.jpg",
       alt: "Сурет-8",
       description: "Сурет-8",
       style: { objectFit: "cover", aspectRatio: "16/9" },

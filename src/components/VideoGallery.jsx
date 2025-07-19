@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { ChevronLeft, ChevronRight, Pause, Play } from "lucide-react";
 import SectionSeparator from "@/components/SectionSeparator";
 
@@ -13,6 +13,10 @@ const OptimizedSlideImage = ({ src, isActive }) => {
       const img = new Image();
       img.onload = () => setLoaded(true);
       img.onerror = () => setError(true);
+      // Add fetchPriority for better loading
+      img.fetchPriority = "high";
+      img.decoding = "async";
+      img.loading = "eager";
       img.src = src;
     }
   }, [src, isActive]);
@@ -27,19 +31,29 @@ const OptimizedSlideImage = ({ src, isActive }) => {
 
   return (
     <>
-      {/* Fast loading placeholder */}
+      {/* Improved loading placeholder with blur effect */}
       {!loaded && (
         <div className="absolute inset-0 bg-gray-200 animate-pulse flex items-center justify-center">
-          <div className="w-8 h-8 border-2 border-gray-400 border-t-transparent rounded-full animate-spin"></div>
+          {/* Base64 blur placeholder */}
+          <div
+            className="absolute inset-0 bg-cover bg-center opacity-30"
+            style={{
+              backgroundImage: `url("data:image/svg+xml,%3csvg width='40' height='40' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='40' height='40' fill='%23f3f4f6'/%3e%3c/svg%3e")`,
+              filter: "blur(10px)",
+            }}
+          />
+          <div className="w-8 h-8 border-2 border-gray-400 border-t-transparent rounded-full animate-spin z-10"></div>
         </div>
       )}
 
-      {/* Optimized background image */}
+      {/* Optimized background image with better performance */}
       {loaded && (
         <div
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-opacity duration-300"
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-opacity duration-500"
           style={{
             backgroundImage: `url(${src})`,
+            imageRendering: "auto",
+            willChange: "transform",
           }}
         />
       )}
@@ -51,16 +65,36 @@ const VideoGallery = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
 
-  const images = [
-    "/images/QuatCl/_ENH6237.jpg",
-    "/images/QuatCl/_ENH6253.jpg",
-    "/images/QuatCl/_ENH6267.jpg",
-    "/images/QuatCl/_ENH6332.jpg",
-    "/images/QuatCl/_ENH6422.jpg",
-    "/images/QuatCl/AGN_7305.jpg",
-    "/images/QuatCl/AGN_7346.jpg",
-    "/images/QuatCl/AGN_7417.jpg",
-  ];
+  const images = useMemo(
+    () => [
+      "/images/QuatCl/_ENH6253.jpg",
+      "/images/QuatCl/_ENH6267.jpg",
+      "/images/QuatCl/_ENH6332.jpg",
+      "/images/QuatCl/_ENH6422.jpg",
+      "/images/QuatCl/AGN_7305.jpg",
+      "/images/QuatCl/AGN_7417.jpg",
+      "/images/QuatCl/2.jpg",
+      "/images/QuatCl/12.jpg",
+    ],
+    []
+  );
+
+  // Preload images for better performance
+  useEffect(() => {
+    const preloadImages = () => {
+      images.forEach((imageSrc, index) => {
+        const img = new Image();
+        img.fetchPriority = index < 3 ? "high" : "low"; // First 3 images high priority
+        img.loading = index === 0 ? "eager" : "lazy";
+        img.decoding = "async";
+        img.src = imageSrc;
+      });
+    };
+
+    // Start preloading after a short delay
+    const timer = setTimeout(preloadImages, 100);
+    return () => clearTimeout(timer);
+  }, [images]);
 
   // Auto slide functionality
   useEffect(() => {

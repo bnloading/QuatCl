@@ -6,12 +6,12 @@ const ImageSlider = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const images = [
-    "/images/QuatCl/_ENH6237.jpg",
     "/images/QuatCl/_ENH6253.jpg",
     "/images/QuatCl/_ENH6267.jpg",
+    "/images/QuatCl/_ENH6332.jpg",
     "/images/QuatCl/AGN_7305.jpg",
-    "/images/QuatCl/AGN_7346.jpg",
     "/images/QuatCl/AGN_7417.jpg",
+    "/images/QuatCl/2.jpg",
   ];
 
   const nextSlide = () => {
